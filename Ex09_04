@@ -1,0 +1,107 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Music{
+	private String title;
+	private String singer;
+	private int price;
+	
+	public String toString() {
+		return title+"/"+singer+"/"+price;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public String getSinger() {
+		return singer;
+	}
+	public int getPrice() {
+		return price;
+	}
+
+
+}//
+public class Ex09_04_박이랑 {
+
+	public static void main(String[] args) {
+		
+		Music m1 = new Music();
+		Music m2 = new Music();
+		ArrayList<Music> list = new ArrayList<Music>();
+		list.add(m1);
+		list.add(m2);
+
+
+		Scanner sc = new Scanner(System.in);
+
+		do {
+			for(int i=0;i<list.size();i++) { //포문 돌때마다 객체를 새로 생성하는 방법은?
+
+				System.out.println("제목:");
+				list.get(i).setTitle(sc.next());
+				System.out.println("가수:");
+				list.get(i).setSinger(sc.next());
+				System.out.println("가격:"); 
+				list.get(i).setPrice(sc.nextInt());
+
+				System.out.println("계속?");
+				String retry = "n";
+				if(retry.equals(sc.next())) {
+					break;
+				}else
+					continue;
+			}break;//for
+		}while(true);
+
+		System.out.println(list); //*** toString() 직접정의
+
+		do {
+			
+			System.out.println("찾는 제목 입력:");
+			String t = sc.next();
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getTitle().equals(t)) {
+					System.out.println(t+"의 가수명은 "+list.get(i).getSinger());
+				}
+			}
+			System.out.println("계속?");
+			String retry = "n";
+			if(retry.equals(sc.next()))
+				break;
+
+		}while(true);
+		System.out.println("프로그램을 종료합니다.");
+
+
+	}
+
+}
+
+/*
+제목:낙하
+가수:악뮤
+가격:1000
+계속?y
+제목:마시멜로
+가수:아이유
+가격:2000
+계속?n
+[낙하/악뮤/1000, 마시멜로/아이유/2000]
+찾는 제목 입력:마시멜로
+마시멜로의 가수명은 아이유
+계속?y
+찾는 제목 입력:단발머리
+찾는 제목이 없습니다.
+계속?n
+프로그램을 종료합니다.
+ */
