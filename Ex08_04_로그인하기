@@ -1,0 +1,103 @@
+import java.util.Scanner;
+
+class Person{
+	String id;
+	String pw;
+	String name;
+	
+	Person(String id,String pw,String name){
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+	}
+	
+}
+public class Ex08_04_내이름 {
+	public static void main(String[] args) {
+		Person[] p = {                                             //다형성
+						new Person("kim","1234","김연아"),
+						new Person("son","7777","손흥민"),
+						new Person("jang","9876","장미란")
+					};
+		
+		String id;
+		String pw;
+		String name;
+		String retry;
+		int i;
+		
+		Scanner sc = new Scanner(System.in);
+		boolean flag = false;
+		
+		do {
+			flag = false;
+			System.out.print("id입력:");
+			id = sc.next();
+			if(id.length()<3 || id.length()>8) { // 3~8
+				System.out.println("id는 3글자~8글자 입력해야 합니다.");
+				continue;
+			}
+				
+			System.out.print("pw입력:");
+			pw = sc.next();
+			
+			for(i=0;i<p.length;i++) { // i=0 1 2                   //다형성의 목적: 여러 객체의 데이터를 for문을 돌려 한번에 비교***
+				if(p[i].id.equals(id)) {
+					if(p[i].pw.equals(pw)) {
+						System.out.println(p[i].name+"님 반갑습니다.");
+						flag = true;
+						break;
+					}
+					else { 
+						System.out.println("비번이 맞지 않습니다.");
+						flag = true;
+					}
+				}
+//				else {
+//					System.out.println("해당 아이디가 없습니다.");
+//				}
+			}//for
+			
+			if(flag == false) {
+				System.out.println("해당 아이디가 없습니다.");
+			}
+			
+			System.out.print("계속?");
+			retry = sc.next();
+			if(retry.equals("n")) {
+				break; // while문 빠져나갈때
+			}
+		}while(true);
+		
+		System.out.println("프로그램을 종료합니다.");
+		
+	}
+}
+
+/*
+id입력:son
+pw입력:7777
+손흥민님 반갑습니다.
+계속?y
+id입력:jang
+pw입력:9876
+장미란님 반갑습니다.
+계속?y
+id입력:son
+pw입력:1212
+비번이 맞지 않습니다.
+계속?y
+id입력:park
+pw입력:9999
+해당 아이디가 없습니다.
+계속?y
+id입력:so
+id는 3글자~8글자 입력해야 합니다.
+id입력:sdfsfdsfsdfs
+id는 3글자~8글자 입력해야 합니다.
+id입력:kim
+pw입력:1234
+김연아님 반갑습니다.
+계속?n
+프로그램을 종료합니다.
+*/
