@@ -14,7 +14,7 @@ class Person{
 }
 public class Ex08_04_내이름 {
 	public static void main(String[] args) {
-		Person[] p = {                                             //다형성
+		Person[] p = {                                             			***다형성
 						new Person("kim","1234","김연아"),
 						new Person("son","7777","손흥민"),
 						new Person("jang","9876","장미란")
@@ -41,7 +41,7 @@ public class Ex08_04_내이름 {
 			System.out.print("pw입력:");
 			pw = sc.next();
 			
-			for(i=0;i<p.length;i++) { // i=0 1 2                   //다형성의 목적: 여러 객체의 데이터를 for문을 돌려 한번에 비교***
+			for(i=0;i<p.length;i++) { // i=0 1 2                   			***다형성의 목적: 여러 객체의 데이터를 for문을 돌려 한번에 비교
 				if(p[i].id.equals(id)) {
 					if(p[i].pw.equals(pw)) {
 						System.out.println(p[i].name+"님 반갑습니다.");
