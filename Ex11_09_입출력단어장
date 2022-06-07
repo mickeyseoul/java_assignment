@@ -1,0 +1,97 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Ex11_09_박이랑 {
+
+	public static void main(String[] args) {
+
+		
+		//InputStream is;
+		//InputStreamReader ir;
+		//BufferedReader br;
+		Scanner sc = new Scanner(System.in);
+		int num;
+		String word, mean;
+		ArrayList<InputStream> list = new ArrayList<InputStream>();
+
+
+		do {
+
+			System.out.println("1.단어입력 2.단어검색 3.종료");
+			num = sc.nextInt();
+
+			switch(num) {
+			case 1 :
+				System.out.println("단어/뜻 입력>>");
+				//InputStream is = System.in;
+				BufferedReader br = 
+						new BufferedReader(
+								new InputStreamReader(System.in));
+
+				break;
+//			case 2 :
+//				System.out.println("검색단어입력>>");
+//				is = System.in;
+//				for(InputStream x : list) {
+//					if(x == is) {
+//						ir = new InputStreamReader(x);
+//						br = new BufferedReader(ir);
+//						try {
+//							String str = br.readLine();
+//							//System.out.println("str:" + str);
+//							int index = str.indexOf('/'); //5
+//							word = str.substring(0, index);
+//							mean = str.substring(index+1);
+//							System.out.println("단어>"+word);
+//							System.out.println("단어의 뜻>"+mean);
+//
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				}
+//				break;
+			default:
+				break;	
+			}
+
+			break;
+
+		}while(true);
+
+	}
+
+}
+
+/*
+1.단어입력 2.단어검색 3.종료
+>>1
+단어/뜻 입력>>hand/손
+1.단어입력 2.단어검색 3.종료
+>>1
+단어/뜻 입력>>blue sky/푸른 하늘
+1.단어입력 2.단어검색 3.종료
+>>1
+단어/뜻 입력>>snow/눈
+1.단어입력 2.단어검색 3.종료
+>>2
+검색 단어 입력>>snow
+단어>snow
+단어의 뜻>눈
+1.단어입력 2.단어검색 3.종료
+>>2
+검색 단어 입력>>blue sky
+단어>blue sky
+단어의 뜻>푸른 하늘
+1.단어입력 2.단어검색 3.종료
+>>2
+검색 단어 입력>>school
+찾는 단어 없음
+1.단어입력 2.단어검색 3.종료
+>>3
+ */
