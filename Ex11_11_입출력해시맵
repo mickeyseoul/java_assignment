@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -12,22 +11,24 @@ public class Ex11_11_박이랑 {
 	public static void main(String[] args) {
 
 		//		파일입출력
-		//		
 		//		한줄씩 EOF만날때까지 읽어들이기
-		//		
 		//		line stringtokenizer 또는 split으로 잘라내고
 		//		hashmap에 넣기
-
+		
+//		FileInputStream is = null;
+//		InputStreamReader ir = null;
+		BufferedReader br = null;
+		String str, word;
+		int i = 1;
+		StringTokenizer stn;
+		HashMap<String,Integer> hm = new HashMap<String,Integer>();
+		
 		try {
-			FileInputStream is = new FileInputStream("lyrics.txt");
-			InputStreamReader ir = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(ir);
-			String str, word;
-			int i = 1;
-			StringTokenizer stn;
-			HashMap<String,Integer> hm = new HashMap<String,Integer>();
-
-			try {
+//			is = new FileInputStream("lyrics.txt");
+//			ir = new InputStreamReader(is);
+//			br = new BufferedReader(ir);
+			br = new BufferedReader(new InputStreamReader(new FileInputStream("lyrics.txt")));
+			
 				while(true){
 					str = br.readLine();
 					if(str==null)
@@ -48,8 +49,13 @@ public class Ex11_11_박이랑 {
 					
 				}
 			}catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			Set<String> set = hm.keySet();
@@ -57,18 +63,7 @@ public class Ex11_11_박이랑 {
 				System.out.println(x+":"+hm.get(x));
 			}
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			br.close();
-		}
 		
-		
-
-
-
-
 
 	}
 
