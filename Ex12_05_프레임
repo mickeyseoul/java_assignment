@@ -13,6 +13,104 @@ class Sub4 extends Frame implements ItemListener{
 	Label lb1, lb2;
 	
 	Sub4(String title){
+		super(title); //Frame class로 보냄
+		
+		setSize(300,200);
+		
+		Panel p1= new Panel(); // 기본 배치관리자는 FlowLayout
+		p1.setBackground(Color.YELLOW);
+		Panel p2= new Panel();
+		p2.setBackground(Color.pink);
+		Panel p3= new Panel();
+		p3.setBackground(Color.cyan);
+		
+		lb1 = new Label("대륙과 나라를 선택하세요");
+		lb2 = new Label("         ");
+		
+		
+		//setLayout(new FlowLayout());
+		ch1 = new Choice();
+		for(int i=0;i<대륙.length;i++) {
+			ch1.add(대륙[i]);
+		}
+		ch2 = new Choice();
+		ch2.add("           ");
+		
+		ch1.addItemListener(this); //ch1에 ItemListener 부착
+		ch2.addItemListener(this); //Choice통한 event source 발생시, 이 클래스에서 ItemListener 인터페이스를 상속받아 미완성메서드를 완성하겠다
+//		add(lb1);
+//		add(ch1);
+//		add(ch2);
+//		add(lb2);
+
+		p1.add(lb1); //프레임에 바로 부착하지 않고 패널을 통해서 부착
+		p2.add(ch1);
+		p2.add(ch2);
+		p3.add(lb2);
+		
+		add("North",p1); //프레임에 패널 부착
+		add("Center",p2);
+		add("South",p3);
+		
+		setVisible(true); //마지막에 하는게 프레임 화면구성이 잘 됨
+		
+		this.addWindowListener( //이 클래스에 WindowListener 부착
+				new WindowAdapter() { //windowAdapter()를 통해서 windowListener 인터페이스의 필요한 추상메서드만 가져와 완성가능
+					public void windowClosing(WindowEvent e) {
+						System.exit(0);
+					}
+				}
+		);
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) { //ItemEvent가 발생했을때 사용
+		//System.out.println("itemStateChanged");
+		Choice obj = (Choice)e.getSource(); // 이벤트 소스가 무엇이었나???***
+		if(obj == ch1) {
+			ch2.removeAll();
+			int index = ch1.getSelectedIndex(); //아시아:0 유럽:1
+			for(int i=0;i<나라[index].length;i++) {
+				ch2.add(나라[index][i]);	
+			}
+		} else {
+			String item = ch1.getSelectedItem() + "-" + ch2.getSelectedItem();
+			lb2.setText("선택한 대륙과 나라는 "+ item);
+		}
+		setVisible(true); //새로고침되면서 긴 문장도 잘 출력됨
+	}
+}//Sub4
+
+public class Ex12_05_내이름 {
+	public static void main(String[] args) {
+		new Sub4("오늘의 과제");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+class Sub4 extends Frame implements ItemListener{
+	
+	String[] 대륙 = {"아시아","유럽","아프리카"};
+	String[][] 나라 = {
+						{"한국","일본","중국"},
+						{"영국","스위스","프랑스"},
+						{"이집트","콩고","우간다"}
+					};
+	Choice ch1, ch2;
+	Label lb1, lb2;
+	
+	Sub4(String title){
 		super(title);
 		
 		setSize(300,200);
@@ -86,3 +184,4 @@ public class Ex12_05_내이름 {
 		new Sub4("오늘의 과제");
 	}
 }
+
