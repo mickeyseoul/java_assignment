@@ -29,7 +29,7 @@ public class Ex11_09_내이름 {
 				
 				bw = new BufferedWriter(new FileWriter("c:\\sun\\voca.txt",true) ); //연결다리
 				//파일 안만들어져 있으면 만들어 짐
-				//false 기존에 있던 것 싹 지운 후 입력
+				//false 기존에 있던 것 싹 지운 후 입력 / 기본 설정으로 되어있음
 				//true 기존에 있던 것에 추가
 				bw.write("c:\\sun\\voca.txt");
 				bw.newLine(); //엔터
