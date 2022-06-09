@@ -1,73 +1,73 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Ex11_09_박이랑 {
+public class Ex11_09_내이름 {
+	public static void main(String[] args) throws IOException { //예외처리 메인메서드로 떠넘김
 
-	public static void main(String[] args) {
-
-		
-		//InputStream is;
-		//InputStreamReader ir;
-		//BufferedReader br;
 		Scanner sc = new Scanner(System.in);
-		int num;
-		String word, mean;
-		ArrayList<InputStream> list = new ArrayList<InputStream>();
-
-
-		do {
-
-			System.out.println("1.단어입력 2.단어검색 3.종료");
-			num = sc.nextInt();
-
-			switch(num) {
-			case 1 :
-				System.out.println("단어/뜻 입력>>");
-				//InputStream is = System.in;
-				BufferedReader br = 
-						new BufferedReader(
-								new InputStreamReader(System.in));
-
+		int input;
+		BufferedReader br = null;
+		BufferedReader br2 = null;
+		BufferedWriter bw = null;
+		String str;
+		boolean flag = false;
+		
+		while(true) {
+			flag = false;
+			System.out.print("1.단어입력 2.단어검색 3.종료 >>");
+			input = sc.nextInt();
+			switch(input) {
+			case 1:
+				System.out.print("단어/뜻 입력>>");
+				br = new BufferedReader(new InputStreamReader(System.in)); //키보드와의 연결다리
+				str = br.readLine();//blue sky/푸른 하늘 //공백입력가능
+				
+				bw = new BufferedWriter(new FileWriter("c:\\sun\\voca.txt",true) ); //연결다리
+				//파일 안만들어져 있으면 만들어 짐
+				//false 기존에 있던 것 싹 지운 후 입력
+				//true 기존에 있던 것에 추가
+				bw.write("c:\\sun\\voca.txt");
+				bw.newLine(); //엔터
+				bw.flush();
+				break; 
+			case 2: 
+				System.out.print("검색 단어 입력>>");
+				br = new BufferedReader(new InputStreamReader(System.in));
+				str = br.readLine(); //blue sky
+				
+				br2 = new BufferedReader(new FileReader("c:\\sun\\voca.txt")); //파일에서 읽어오기 위한 연결다리
+				String line;
+				while((line = br2.readLine())!=null) {
+					String[] tokens = line.split("/");
+					if(tokens[0].equals(str)) {
+						System.out.println("단어>"+tokens[0]);
+						System.out.println("단어의 뜻>"+tokens[1]);
+						flag = true;
+					}
+				}
+				if(flag==false) {
+					System.out.println("찾는 단어 없음");
+				}
 				break;
-//			case 2 :
-//				System.out.println("검색단어입력>>");
-//				is = System.in;
-//				for(InputStream x : list) {
-//					if(x == is) {
-//						ir = new InputStreamReader(x);
-//						br = new BufferedReader(ir);
-//						try {
-//							String str = br.readLine();
-//							//System.out.println("str:" + str);
-//							int index = str.indexOf('/'); //5
-//							word = str.substring(0, index);
-//							mean = str.substring(index+1);
-//							System.out.println("단어>"+word);
-//							System.out.println("단어의 뜻>"+mean);
-//
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//
-//					}
-//				}
-//				break;
-			default:
-				break;	
-			}
-
-			break;
-
-		}while(true);
-
+			case 3: 
+				System.out.println("프로그램을 종료합니다.");
+				br.close();
+				bw.close();
+				br2.close();
+				System.exit(0);
+				break;
+			default :
+				System.out.println("1~3만 입력 가능");
+				
+			}//switch
+		}//while
 	}
-
 }
-
 /*
 1.단어입력 2.단어검색 3.종료
 >>1
