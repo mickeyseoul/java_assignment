@@ -141,3 +141,144 @@ public class Ex12_11_박이랑 {
 	}
 
 }
+
+
+
+
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+ 
+public class AddGrade implements ActionListener{
+
+	JTable table;
+	JTextField[] tf = new JTextField[4];
+	String[] str = new String[4];
+	
+	AddGrade(JTable table,JTextField[] tf){
+		this.table = table;
+		for(int i=0;i<tf.length;i++) {
+			this.tf[i] = tf[i];
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println("추가클릭");
+		for(int i=0;i<tf.length;i++) {
+			str[i] = tf[i].getText();
+		}
+		
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		model.addRow(str);
+		for(int i=0;i<tf.length;i++) {
+			tf[i].setText("");
+		}
+	}
+	
+}
+
+
+
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class DeleteGrade implements ActionListener{
+	
+	JTable table;
+	DeleteGrade(JTable table){
+		this.table = table;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println("삭제클릭");
+		int row = table.getSelectedRow();
+		
+		DefaultTableModel model = (DefaultTableModel)table.getModel();
+		model.removeRow(row);;
+		
+	}
+
+}
+
+
+
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JTable;
+
+public class FilePrint implements ActionListener{
+	JTable table;
+	FilePrint(JTable table){
+		this.table = table;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//System.out.println("화일출력 버튼 클릭");
+		
+		File file = new File("C:\\sun\\table2.txt");
+		
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		
+		
+		int rowCount = table.getRowCount(); //3
+		int columnCount = table.getColumnCount(); // 4
+		try {
+			fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
+			
+			for(int i=0;i<columnCount;i++) { //0 1 2 3  
+				String columnName = table.getColumnName(i);
+				bw.write(columnName);
+				if(i != columnCount-1) {
+					bw.write("/");
+				}
+				else {
+					bw.newLine();
+				}
+			}//
+			
+			for(int i=0;i<rowCount;i++) {
+				for(int j=0;j<columnCount;j++) {
+					Object obj = table.getValueAt(i, j);
+					bw.write((String)obj); //다운캐스팅***
+					
+					if(j != columnCount-1) {
+						bw.write("/");
+					}
+					else {
+						bw.newLine();
+					}
+				}
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				bw.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+}
+
