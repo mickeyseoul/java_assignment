@@ -146,7 +146,7 @@ public class Ex12_11_박이랑 {
 
 
 
-
+▶
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -185,7 +185,7 @@ public class AddGrade implements ActionListener{
 
 
 
-
+▶
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -213,7 +213,7 @@ public class DeleteGrade implements ActionListener{
 
 
 
-
+▶
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -233,20 +233,24 @@ public class FilePrint implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//System.out.println("화일출력 버튼 클릭");
 		
-		File file = new File("C:\\sun\\table2.txt");
+//		File file = new File("C:\\sun\\table2.txt");
+//		
+//		FileWriter fw = null;
+//		BufferedWriter bw = null;
 		
-		FileWriter fw = null;
 		BufferedWriter bw = null;
 		
 		
-		int rowCount = table.getRowCount(); //3
+		int rowCount = table.getRowCount(); //3행
 		int columnCount = table.getColumnCount(); // 4
 		try {
-			fw = new FileWriter(file);
-			bw = new BufferedWriter(fw);
+//			fw = new FileWriter(file);
+//			bw = new BufferedWriter(fw);
+			
+			bw = new BufferedWriter(new FileWriter("C:\\sun\\table2.txt"));
 			
 			for(int i=0;i<columnCount;i++) { //0 1 2 3  
-				String columnName = table.getColumnName(i);
+				String columnName = table.getColumnName(i); //***
 				bw.write(columnName);
 				if(i != columnCount-1) {
 					bw.write("/");
@@ -258,7 +262,7 @@ public class FilePrint implements ActionListener{
 			
 			for(int i=0;i<rowCount;i++) {
 				for(int j=0;j<columnCount;j++) {
-					Object obj = table.getValueAt(i, j);
+					Object obj = table.getValueAt(i, j); //Table은 2중 배열과 같다***
 					bw.write((String)obj); //다운캐스팅***
 					
 					if(j != columnCount-1) {
@@ -281,4 +285,3 @@ public class FilePrint implements ActionListener{
 	}
 
 }
-
