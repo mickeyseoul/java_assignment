@@ -1,0 +1,143 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import java.awt.event.*;
+
+class Sub11 extends JFrame implements ActionListener{
+	
+	JTable table;
+	JScrollPane sPane;
+	Container contentPane;
+	
+	Vector<String> columnName = null; //그대로 쓰면 nullpointerexception 오류남
+	Vector<Vector<String>> data = null; //중첩벡터 벡터의 벡터
+	int cnt = 1;
+	
+//	String[] columnName = {"이름","직업","나이"};
+//	Object[][] data = { //모든 클래스를 상속받는 Object
+//			{"김연아","운동선수",new Integer(30)},
+//			{"전지현","배우",40},
+//			{"유재석","개그맨",50},
+//			{"웬디","가수",17},
+//	};
+	String[] caption = {"이름","국어","영어","수학"};
+	JTextField[] tf = new JTextField[4]; //JTextField관리자 4개 만듬 객체는 아직
+	JButton btnAdd,btnDelete,btnOut,btnExit;
+	BufferedReader br;
+	
+	Sub11(String title){
+		super(title);
+		columnName = new Vector<String>();
+		data = new Vector<Vector<String>>();
+		getFile();
+		compose();
+		
+		
+		setSize(700,300);
+		setVisible(true);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //JFrame에서 종료
+	}
+
+	private void compose() {
+		table = new JTable(data,columnName);
+		sPane = new JScrollPane(table);
+		contentPane = getContentPane(); 
+		//contentPane.add(sPane,BorderLayout.CENTER);
+		contentPane.setLayout(null); //어떤 배치관리자도 안쓰겠다
+		contentPane.add(sPane);
+		sPane.setBounds(250,30,400,200); //스크롤패널 위치설정 //가로떨어짐 세로떨어짐 가로길이 세로길이
+		
+		for(int i=0;i<4;i++) {
+			JLabel lb = new JLabel(); //<-----------라벨 만들고
+			lb.setText(caption[i]);
+			lb.setBounds(10,(i+1)*30,50,20);
+			contentPane.add(lb);
+			
+			tf[i] = new JTextField(); //<-------------텍스트필드 만들고
+			tf[i].setBounds(80,(i+1)*30,90,20);
+			contentPane.add(tf[i]);
+		}
+		
+		btnAdd = new JButton("추가"); //<-------------------------버튼만들고
+		btnAdd.setBounds(20,170,90,20);
+		contentPane.add(btnAdd);
+		btnAdd.addActionListener(new AddGrade(table,tf));
+		
+		btnDelete = new JButton("삭제");
+		btnDelete.setBounds(130,170,90,20);
+		contentPane.add(btnDelete);
+		btnDelete.addActionListener(new Delete(table));
+		
+		btnOut = new JButton("화일출력"); //table2.txt에다 출력
+		btnOut.setBounds(20,200,90,20);
+		contentPane.add(btnOut);
+		btnOut.addActionListener(new FilePrint(table,br));
+		
+		btnExit = new JButton("종료");
+		btnExit.setBounds(130,200,90,20);
+		contentPane.add(btnExit);
+		btnExit.addActionListener(this);
+	}
+
+	private void getFile() {
+		try {
+			br = new BufferedReader(new FileReader(new File("c:\\sun\\table.txt")));
+			String line;
+			try {
+				while( (line = br.readLine()) != null) {
+					
+					tableMake(line);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void tableMake(String line) {
+		String[] tokens = line.split("/");
+		if(cnt++ == 1) { //제목 첫번째 줄만! 이후에 돌아올때는 2되어있음***
+			for(int i=0;i<tokens.length;i++) {
+				columnName.add(tokens[i]);
+			}
+		}else {//내용
+			Vector<String> one = new Vector<String>(); //왜 굳이 백터를 또 만드는지?***
+			for(int i=0;i<tokens.length;i++) {
+				one.add(tokens[i]);
+			}
+			data.add(one);
+		}
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.exit(0);
+		
+	}
+}
+public class Ex12_11_박이랑 {
+
+	public static void main(String[] args) {
+		new Sub11("성적 처리");
+
+	}
+
+}
