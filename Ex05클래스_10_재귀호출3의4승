@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class Ex05_10_박이랑 {
+
+	public static void main(String[] args) {
+		
+//		정수 2개 입력
+		int a, b;
+//		
+//		3 4:3의 4승 3*3*3*3*1
+//		5 3:5의 3승 5*5*5*1
+//		
+//		재귀호출
+//		for문
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("밑:");
+		a = sc.nextInt();
+		System.out.println("지수:");
+		b = sc.nextInt();
+		
+		int result = recursive(a,b); // recursive: 반복되는
+		System.out.println("result:"+result);
+		
+		int result2 = recursive(a,b);
+		System.out.println("result2:"+result2);
+	}
+	
+	static int recursive(int x, int y) {
+		if(y==0)
+			return 1; // x의 0승 = 1
+		else
+		return x* recursive(x,y-1);
+	}
+	
+	static int recursive2(int x, int y) {
+		int mul = 1;
+		for(int i=1;i<=y;i++) {
+			mul = mul * x;	
+		}
+		return mul;
+    
+    
+	}
+		
+}		
+		
